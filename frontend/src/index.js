@@ -1,5 +1,5 @@
 /* eslint-disable functional/no-expression-statements */
-import './index.css';
+import './styles/index.scss';
 import initApp from './init.jsx';
 
 initApp();
