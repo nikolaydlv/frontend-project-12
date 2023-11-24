@@ -71,14 +71,14 @@ const App = () => {
 
           <Routes>
             <Route
-              path={routes.chatPath()}
+              path={routes.chatPagePath()}
               element={(
                 <PrivateRoute>
                   <ChatPage />
                 </PrivateRoute>
               )}
             />
-            <Route path={routes.loginPath()} element={<LoginPage />} />
+            <Route path={routes.loginPagePath()} element={<LoginPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
 
