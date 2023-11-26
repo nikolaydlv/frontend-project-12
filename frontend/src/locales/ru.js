@@ -4,6 +4,7 @@ export default {
     placeholders: {
       login: 'Ваш ник',
       password: 'Пароль',
+      newMessage: 'Введите сообщение...',
     },
     entry: 'Войти',
     exit: 'Выйти',
@@ -13,5 +14,14 @@ export default {
     pageNotFound: 'Страница не найдена',
     redirect: 'Но вы можете перейти ',
     mainPage: 'на главную страницу',
+    channelsTitle: 'Каналы',
+    newMessage: 'Новое сообщение',
+    send: 'Отправить',
+    messagesCounter: {
+      messages_zero: 'Нет сообщений',
+      messages_one: '{{count}} сообщение',
+      messages_few: '{{count}} сообщения',
+      messages_many: '{{count}} сообщений',
+    },
   },
 };
