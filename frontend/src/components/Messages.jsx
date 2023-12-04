@@ -1,40 +1,43 @@
 /* eslint-disable functional/no-expression-statements */
-import { useFormik } from 'formik';
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Button, Col, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import * as yup from 'yup';
+import { useFormik } from 'formik';
 
 import useSocket from '../hooks/socket.js';
+import { chatSchema } from '../validation/validationSchema.js';
 
 const Messages = () => {
-  const refInput = useRef();
   const { t } = useTranslation();
   const { addNewMessage } = useSocket();
+  const inputMessage = useRef(null);
+
+  useEffect(() => {
+    inputMessage.current.focus();
+  }, []);
 
   const { channels, currentChannelId } = useSelector((state) => state.channels);
 
-  const currentChannelName = channels.length !== 0
-    ? channels.find((el) => el.id === currentChannelId).name
+  const currentChannel = channels.length !== 0
+    ? channels.find((el) => el.id === currentChannelId)
+    : '';
+
+  const currentChannelName = currentChannel
+    ? currentChannel.name
     : '';
 
   const { messages } = useSelector((state) => state.messages);
-
   const currentMessages = messages.filter((el) => el.channelId === currentChannelId);
   const currentMessagesLength = currentMessages
     ? currentMessages.length
     : 0;
 
-  const chatSchema = yup.object().shape({
-    body: yup.string().trim().required(),
-  });
-
   const formik = useFormik({
     initialValues: {
       body: '',
     },
-    validationSchema: chatSchema,
+    validationSchema: chatSchema(t('messageBody')),
     onSubmit: (values) => {
       const { body } = values;
       const { username } = JSON.parse(localStorage.getItem('userdata'));
@@ -49,7 +52,7 @@ const Messages = () => {
         addNewMessage(newMessage);
         formik.resetForm();
       }
-      refInput.current.focus();
+      inputMessage.current.focus();
     },
   });
 
@@ -77,7 +80,8 @@ const Messages = () => {
 
         <div className="mt-auto px-5 py-3">
           <Form onSubmit={formik.handleSubmit} noValidate className="py-1 border rounded-2">
-            <Form.Group className="has-validation input-group">
+            <Form.Group className="input-group">
+              <Form.Label className="visually-hidden" htmlFor="body">{t('newMessage')}</Form.Label>
               <Form.Control
                 name="body"
                 aria-label={t('newMessage')}
@@ -85,11 +89,11 @@ const Messages = () => {
                 className="border-0 p-0 ps-2"
                 onChange={formik.handleChange}
                 value={formik.values.body}
-                ref={refInput}
+                ref={inputMessage}
               />
               <Button
                 type="submit"
-                disabled=""
+                disabled={!formik.values.body}
                 variant=""
                 className="btn-group-vertical border-0"
               >

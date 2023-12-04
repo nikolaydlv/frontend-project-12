@@ -1,6 +1,5 @@
 /* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-expression-statements */
-import * as yup from 'yup';
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
@@ -16,13 +15,9 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import useAuth from '../hooks/auth.jsx';
 
+import { loginSchema } from '../validation/validationSchema.js';
 import loginImg from '../assets/login.jpg';
 import routes from '../routes.js';
-
-const loginSchema = yup.object().shape({
-  name: yup.string().required(),
-  password: yup.string().required(),
-});
 
 const LoginPage = () => {
   const inputNameRef = useRef();
