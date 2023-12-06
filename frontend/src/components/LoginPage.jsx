@@ -3,6 +3,8 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
+import { useNavigate, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
   Container,
   Row,
@@ -11,11 +13,9 @@ import {
   Button,
   Form,
 } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import useAuth from '../hooks/auth.js';
 
 import { loginSchema } from '../validation/validationSchema.js';
+import useAuth from '../hooks/auth.js';
 import loginImg from '../assets/login.jpg';
 import routes from '../routes.js';
 
@@ -34,7 +34,7 @@ const LoginPage = () => {
     initialValues: {
       username: '',
       password: '',
-      validationSchema: loginSchema,
+      validationSchema: loginSchema(t('errors.required')),
     },
     onSubmit: async (values) => {
       try {
@@ -64,6 +64,7 @@ const LoginPage = () => {
       <Row className="justify-content-center align-content-center h-100">
         <Col xs={12} md={8} xxl={6}>
           <Card className="shadow-sm">
+
             <Card.Body className="row p-5">
               <Col xs={12} md={6} className="d-flex align-items-center justify-content-center">
                 <img src={loginImg} className="rounded-circle" alt={t('entry')} />
@@ -99,19 +100,30 @@ const LoginPage = () => {
                     isInvalid={authFailed}
                   />
                   <Form.Label htmlFor="password">{t('placeholders.password')}</Form.Label>
-                  <div className="invalid-tooltip">{t('invalidFeedback')}</div>
+                  <div className="invalid-tooltip">{t('errors.invalidFeedback')}</div>
                 </Form.Floating>
 
                 <Button
                   type="submit"
                   variant="outline-primary"
                   className="w-100 mb-3"
+                  disabled={formik.isSubmitting}
                 >
                   {t('entry')}
                 </Button>
 
               </Form>
             </Card.Body>
+
+            <Card.Footer className="p-4">
+              <div className="text-center">
+                <span className="me-2">
+                  {t('noAccount')}
+                </span>
+                <Card.Link as={Link} to="/signup">{t('registration')}</Card.Link>
+              </div>
+            </Card.Footer>
+
           </Card>
         </Col>
       </Row>
