@@ -15,8 +15,9 @@ import AuthContext from '../contexts/index.js';
 import useAuth from '../hooks/auth.js';
 import routes from '../routes.js';
 
-import ChatPage from './ChatPage.jsx';
+import Signup from './Signup.jsx';
 import LoginPage from './LoginPage.jsx';
+import ChatPage from './ChatPage.jsx';
 import NotFound from './NotFound.jsx';
 
 const AuthProvider = ({ children }) => {
@@ -79,7 +80,8 @@ const App = () => {
               )}
             />
             <Route path={routes.loginPagePath()} element={<LoginPage />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path={routes.signupPagePath()} element={<Signup />} />
+            <Route path={routes.notFoundPath()} element={<NotFound />} />
           </Routes>
 
         </Router>
