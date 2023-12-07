@@ -53,6 +53,12 @@ export default {
       invalidFeedback: 'Неверные имя пользователя или пароль',
       userExist: 'Такой пользователь уже существует',
       required: 'Обязательное поле',
+      network: 'Ошибка соединения',
+    },
+    success: {
+      newChannel: 'Канал создан',
+      removeChannel: 'Канал удален',
+      renameChannel: 'Канал переименован',
     },
   },
 };
