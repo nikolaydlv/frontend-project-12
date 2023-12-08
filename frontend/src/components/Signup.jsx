@@ -2,6 +2,7 @@
 /* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-expression-statements */
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
@@ -57,9 +58,15 @@ const SignupPage = () => {
         navigate('/');
       } catch (err) {
         formik.setSubmitting(false);
-        if (err.isAxiosError && err.response.status === 409) {
-          setRegistrationFailed(true);
-          inputNameRef.current.select();
+        if (err.isAxiosError) {
+          if (err.response.status === 409) {
+            setRegistrationFailed(true);
+            inputNameRef.current.select();
+          } else {
+            toast.error(t('errors.network'));
+          }
+        } else {
+          toast.error(err.message);
         }
       }
     },

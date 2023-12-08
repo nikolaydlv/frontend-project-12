@@ -1,6 +1,7 @@
 /* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-expression-statements */
 import { io } from 'socket.io-client';
+import { toast } from 'react-toastify';
 
 import store from '../slices/index.js';
 import { addMessage, removeAllChannelMessages } from '../slices/messagesSlice.js';
@@ -24,7 +25,7 @@ const socketApi = () => {
 
   const addNewMessage = (msg) => socket.emit('newMessage', msg, (resp) => {
     if (resp.status !== 'ok') {
-      console.log(resp.status);
+      toast.error(resp.status);
     }
   });
 
@@ -36,7 +37,7 @@ const socketApi = () => {
     if (resp.status === 'ok') {
       dispatch(changeCurrentChannel(resp.data.id));
     } else {
-      console.log(resp.status);
+      toast.error(resp.status);
     }
   });
 
@@ -47,7 +48,7 @@ const socketApi = () => {
 
   const removeChannel = (id) => socket.emit('removeChannel', { id }, (resp) => {
     if (resp.status !== 'ok') {
-      console.log(resp.status);
+      toast.error(resp.status);
     }
   });
 
@@ -57,7 +58,7 @@ const socketApi = () => {
 
   const renameChannel = (channel) => socket.emit('renameChannel', channel, (resp) => {
     if (resp.status !== 'ok') {
-      console.log(resp.status);
+      toast.error(resp.status);
     }
   });
 

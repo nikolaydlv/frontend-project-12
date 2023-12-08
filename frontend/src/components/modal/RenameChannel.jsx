@@ -1,4 +1,5 @@
 /* eslint-disable functional/no-expression-statements */
+import { toast } from 'react-toastify';
 import React, { useRef, useEffect } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
@@ -32,6 +33,7 @@ const RenameChannel = () => {
     onSubmit: (values) => {
       renameChannel({ name: values.channelName, id: targetId });
       dispatch(closeModal());
+      toast.success(t('success.renameChannel'));
     },
   });
 

@@ -1,5 +1,8 @@
 /* eslint-disable functional/no-expression-statements */
 import React, { useState, useMemo } from 'react';
+import { Button, Navbar, Container } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { ToastContainer } from 'react-toastify';
 import {
   BrowserRouter as Router,
   Routes,
@@ -8,8 +11,6 @@ import {
   Navigate,
   useLocation,
 } from 'react-router-dom';
-import { Button, Navbar, Container } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
 
 import AuthContext from '../contexts/index.js';
 import useAuth from '../hooks/auth.js';
@@ -69,6 +70,7 @@ const App = () => {
               <AuthButton />
             </Container>
           </Navbar>
+          <ToastContainer />
 
           <Routes>
             <Route

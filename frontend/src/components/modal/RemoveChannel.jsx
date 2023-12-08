@@ -1,4 +1,5 @@
 /* eslint-disable functional/no-expression-statements */
+import { toast } from 'react-toastify';
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
@@ -20,6 +21,7 @@ const RemoveChannel = () => {
   const handleRemove = (id) => {
     removeChannel(id);
     dispatch(closeModal());
+    toast.success(t('success.removeChannel'));
   };
 
   return (
