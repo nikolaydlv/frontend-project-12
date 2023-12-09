@@ -1,4 +1,5 @@
 /* eslint-disable functional/no-expression-statements */
+import filter from 'leo-profanity';
 import React, { useRef, useEffect } from 'react';
 import { Button, Col, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -72,8 +73,8 @@ const Messages = () => {
             ? ''
             : currentMessages.map((el) => (
               <div className="text-break mb-2" key={el.id}>
-                <b>{el.username}</b>
-                {`: ${el.body}`}
+                <b>{filter.clean(el.username)}</b>
+                {`: ${filter.clean(el.body)}`}
               </div>
             ))}
         </div>

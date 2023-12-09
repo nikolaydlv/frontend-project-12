@@ -1,3 +1,4 @@
+import filter from 'leo-profanity';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -63,7 +64,7 @@ const Channels = () => {
                 className="w-100 rounded-0 text-start text-truncate"
               >
                 <span className="me-1">#</span>
-                {el.name}
+                {filter.clean(el.name)}
               </Button>
 
               { el.removable && (
