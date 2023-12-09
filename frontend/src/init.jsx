@@ -20,6 +20,11 @@ const init = async () => {
     environment: 'testenv',
   };
 
+  function TestError() {
+    const a = null;
+    return a.hello();
+  }
+
   const api = socketApi();
   const i18n = i18next.createInstance();
 
@@ -38,6 +43,7 @@ const init = async () => {
           <SocketProvider api={api}>
             <I18nextProvider i18n={i18n}>
               <App />
+              <TestError />
             </I18nextProvider>
           </SocketProvider>
         </StoreProvider>
