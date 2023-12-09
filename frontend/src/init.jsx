@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable functional/no-expression-statements */
 import filter from 'leo-profanity';
 import React from 'react';
@@ -5,6 +6,7 @@ import ReactDOM from 'react-dom/client';
 import i18next from 'i18next';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import { Provider as StoreProvider } from 'react-redux';
+import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 
 import App from './components/App.jsx';
 import resources from './locales/index.js';
@@ -13,6 +15,14 @@ import socketApi from './socketApi/api.js';
 import SocketProvider from './contexts/SocketProvider.jsx';
 
 const init = async () => {
+  const rollbarConfig = {
+    accessToken: process.env.REACT_APP_ROLLBAR_ACCESS_TOKEN,
+    enabled: process.env.NODE_ENV === 'production',
+    captureUncaught: true,
+    captureUnhandledRejections: true,
+    environment: 'production',
+  };
+
   const api = socketApi();
   const i18n = i18next.createInstance();
 
@@ -25,13 +35,17 @@ const init = async () => {
   const root = ReactDOM.createRoot(document.getElementById('root'));
 
   return root.render(
-    <StoreProvider store={store}>
-      <SocketProvider api={api}>
-        <I18nextProvider i18n={i18n}>
-          <App />
-        </I18nextProvider>
-      </SocketProvider>
-    </StoreProvider>,
+    <RollbarProvider config={rollbarConfig}>
+      <ErrorBoundary>
+        <StoreProvider store={store}>
+          <SocketProvider api={api}>
+            <I18nextProvider i18n={i18n}>
+              <App />
+            </I18nextProvider>
+          </SocketProvider>
+        </StoreProvider>
+      </ErrorBoundary>
+    </RollbarProvider>,
   );
 };
 
