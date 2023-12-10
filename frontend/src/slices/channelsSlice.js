@@ -5,11 +5,11 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import fetchData from './fetchData.js';
 
-const generalChanelId = 1;
+const generalChannelId = 1;
 
 const initialState = {
   channels: [],
-  currentChannelId: generalChanelId,
+  currentChannelId: generalChannelId,
 };
 
 const channelsSlice = createSlice({
@@ -30,7 +30,7 @@ const channelsSlice = createSlice({
       state.channels = state.channels.filter((el) => el.id !== payload.id);
 
       if (state.currentChannelId === payload.id) {
-        state.currentChannelId = generalChanelId;
+        state.currentChannelId = generalChannelId;
       }
     },
 

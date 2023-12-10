@@ -1,9 +1,7 @@
 /* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-expression-statements */
-import { io } from 'socket.io-client';
 import { toast } from 'react-toastify';
 
-import store from '../slices/index.js';
 import { addMessage, removeAllChannelMessages } from '../slices/messagesSlice.js';
 import {
   addChannel,
@@ -12,8 +10,7 @@ import {
   renameChannel as renameChannelById,
 } from '../slices/channelsSlice.js';
 
-const socketApi = () => {
-  const socket = io();
+const chatApi = (socket, store) => {
   const { dispatch } = store;
 
   const apiConnect = () => socket.connect();
@@ -72,4 +69,4 @@ const socketApi = () => {
   };
 };
 
-export default socketApi;
+export default chatApi;
