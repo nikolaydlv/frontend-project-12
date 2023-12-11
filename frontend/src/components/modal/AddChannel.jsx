@@ -24,10 +24,14 @@ const AddChannel = () => {
     validationSchema: newChannelSchema(channels, t('modal.unique'), t('modal.lengthParams')),
 
     onSubmit: (values) => {
-      addNewChannel({ name: values.channelName });
-      formik.resetForm();
-      dispatch(closeModal());
-      toast.success(t('success.newChannel'));
+      try {
+        addNewChannel({ name: values.channelName });
+        formik.resetForm();
+        dispatch(closeModal());
+        toast.success(t('success.newChannel'));
+      } catch (err) {
+        toast.error(t('errors.channelAdd'));
+      }
     },
   });
 
