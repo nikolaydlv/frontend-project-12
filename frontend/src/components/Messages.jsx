@@ -81,7 +81,8 @@ const Messages = () => {
             : currentMessages.map((el) => (
               <div className="text-break mb-2" key={el.id}>
                 <b>{filter.clean(el.username)}</b>
-                {`: ${filter.clean(el.body)}`}
+                {': '}
+                {filter.clean(el.body)}
               </div>
             ))}
         </div>

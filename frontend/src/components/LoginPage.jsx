@@ -5,8 +5,8 @@ import { toast } from 'react-toastify';
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { Container, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { Container, Row, Col } from 'react-bootstrap';
 
 import LoginCard from './LoginCard.jsx';
 
@@ -31,6 +31,7 @@ const LoginPage = () => {
       password: '',
       validationSchema: loginSchema(t('errors.required')),
     },
+
     onSubmit: async (values) => {
       try {
         const response = await axios.post(routes.loginPath(), {

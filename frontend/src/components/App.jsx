@@ -1,4 +1,3 @@
-/* eslint-disable functional/no-expression-statements */
 import { Button, Navbar, Container } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer } from 'react-toastify';
@@ -11,10 +10,10 @@ import {
   useLocation,
 } from 'react-router-dom';
 
-import AuthProvider from '../contexts/AuthProvider.jsx';
 import useAuth from '../hooks/auth.js';
 import routes from '../routes.js';
 
+import AuthProvider from '../contexts/AuthProvider.jsx';
 import Signup from './SignupPage.jsx';
 import LoginPage from './LoginPage.jsx';
 import ChatPage from './ChatPage.jsx';
@@ -40,6 +39,7 @@ const AuthButton = () => {
 
 const App = () => {
   const { t } = useTranslation();
+
   return (
     <AuthProvider>
       <div className="d-flex flex-column h-100">
@@ -51,6 +51,7 @@ const App = () => {
               <AuthButton />
             </Container>
           </Navbar>
+
           <ToastContainer />
 
           <Routes>

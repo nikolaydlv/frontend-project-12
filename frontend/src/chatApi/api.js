@@ -1,5 +1,6 @@
 /* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-expression-statements */
+
 import { toast } from 'react-toastify';
 
 import { addMessage, removeAllChannelMessages } from '../slices/messagesSlice.js';
@@ -12,7 +13,6 @@ import {
 
 const chatApi = (socket, store) => {
   const { dispatch } = store;
-
   const apiConnect = () => socket.connect();
   const apiDisconnect = () => socket.disconnect();
 

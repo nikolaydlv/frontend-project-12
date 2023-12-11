@@ -1,5 +1,6 @@
 /* eslint-disable functional/no-conditional-statements */
 /* eslint-disable functional/no-expression-statements */
+
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
@@ -32,7 +33,12 @@ const SignupPage = () => {
       passwordConfirmation: '',
     },
 
-    validationSchema: registrationSchema(t('registrationRules.name'), t('registrationRules.password'), t('registrationRules.passwordEquality'), t('errors.required')),
+    validationSchema: registrationSchema(
+      t('registrationRules.name'),
+      t('registrationRules.password'),
+      t('registrationRules.passwordEquality'),
+      t('errors.required'),
+    ),
 
     onSubmit: async (values) => {
       try {

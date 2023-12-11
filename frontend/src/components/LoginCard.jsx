@@ -1,5 +1,5 @@
-import { Col, Card, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { Col, Card, Form } from 'react-bootstrap';
 
 import loginImg from '../assets/login.jpg';
 import InputField from './InputField.jsx';

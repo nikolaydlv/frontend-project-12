@@ -9,15 +9,19 @@ import { Provider as StoreProvider } from 'react-redux';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 
 import App from './components/App.jsx';
+import SocketProvider from './contexts/SocketProvider.jsx';
+
 import resources from './locales/index.js';
 import store from './slices/index.js';
 import chatApi from './chatApi/api.js';
-import SocketProvider from './contexts/SocketProvider.jsx';
 
 const init = async (socket) => {
   const rollbarConfig = {
-    accessToken: '6149f8a3cfbf4f2598358b46366c59aa',
-    environment: 'testenv',
+    accessToken: process.env.REACT_APP_ROLLBAR_ACCESS_TOKEN,
+    enabled: process.env.NODE_ENV === 'production',
+    captureUncaught: true,
+    captureUnhandledRejections: true,
+    environment: 'production',
   };
 
   const api = chatApi(socket, store);
