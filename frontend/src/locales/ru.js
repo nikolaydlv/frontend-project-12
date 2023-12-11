@@ -39,14 +39,21 @@ export default {
 
     modal: {
       add: 'Добавить канал',
-      toggle: 'Переключатель режимов',
+      toggle: 'Управление каналом',
       rename: 'Переименовать',
       renameChannel: 'Переименовать канал',
       remove: 'Удалить',
       removeChannel: 'Удалить канал',
+      channelName: 'Имя канала',
       confirm: 'Уверены?',
       unique: 'Должно быть уникальным',
       lengthParams: 'От 3 до 20 символов',
+    },
+
+    success: {
+      newChannel: 'Канал создан',
+      removeChannel: 'Канал удален',
+      renameChannel: 'Канал переименован',
     },
 
     errors: {
@@ -54,11 +61,10 @@ export default {
       userExist: 'Такой пользователь уже существует',
       required: 'Обязательное поле',
       network: 'Ошибка соединения',
-    },
-    success: {
-      newChannel: 'Канал создан',
-      removeChannel: 'Канал удален',
-      renameChannel: 'Канал переименован',
+      message: 'Ошибка добавления сообщения',
+      channelAdd: 'Ошибка добавления канала',
+      channelRemove: 'Ошибка удаления канала',
+      channelRename: 'Ошибка переименования канала',
     },
   },
 };
