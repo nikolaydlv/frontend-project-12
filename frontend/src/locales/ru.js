@@ -52,7 +52,7 @@ export default {
 
     success: {
       newChannel: 'Канал создан',
-      removeChannel: 'Канал удален',
+      removeChannel: 'Канал удалён',
       renameChannel: 'Канал переименован',
     },
 
