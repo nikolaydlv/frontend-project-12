@@ -1,12 +1,11 @@
-/* eslint-disable functional/no-expression-statements */
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Container, Row } from 'react-bootstrap';
 
-import fetchData from '../slices/fetchData.js';
+import fetchData from '../slices/fetchData';
 
-import Channels from './Channels.jsx';
-import Messages from './Messages.jsx';
+import Channels from './Channels';
+import Messages from './Messages';
 
 const ChatPage = () => {
   const { token } = JSON.parse(localStorage.getItem('userdata'));

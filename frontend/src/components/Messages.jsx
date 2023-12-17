@@ -1,5 +1,3 @@
-/* eslint-disable functional/no-conditional-statements */
-/* eslint-disable functional/no-expression-statements */
 import filter from 'leo-profanity';
 import { toast } from 'react-toastify';
 import React, { useRef, useEffect } from 'react';
@@ -8,8 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 
-import useSocket from '../hooks/socket.js';
-import { chatSchema } from '../validation/validationSchema.js';
+import useSocket from '../hooks/socket';
+import { chatSchema } from '../validation/validationSchema';
 
 const Messages = () => {
   const { t } = useTranslation();

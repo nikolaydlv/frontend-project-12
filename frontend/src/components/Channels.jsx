@@ -9,9 +9,9 @@ import {
   Dropdown,
 } from 'react-bootstrap';
 
-import getModal from './modal/index.js';
-import { changeCurrentChannel } from '../slices/channelsSlice.js';
-import { openModal } from '../slices/modalSlice.js';
+import getModal from './modal/index';
+import { changeCurrentChannel } from '../slices/channelsSlice';
+import { openModal } from '../slices/modalSlice';
 
 const Channels = () => {
   const dispatch = useDispatch();

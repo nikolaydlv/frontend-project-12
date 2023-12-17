@@ -1,9 +1,6 @@
-/* eslint-disable functional/no-conditional-statements */
-/* eslint-disable functional/no-expression-statements */
-
 import { toast } from 'react-toastify';
 
-import { addMessage, removeAllChannelMessages } from '../slices/messagesSlice.js';
+import { addMessage, removeAllChannelMessages } from '../slices/messagesSlice';
 import {
   addChannel,
   changeCurrentChannel,

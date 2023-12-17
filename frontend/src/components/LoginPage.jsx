@@ -1,5 +1,3 @@
-/* eslint-disable functional/no-conditional-statements */
-/* eslint-disable functional/no-expression-statements */
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import React, { useEffect, useRef, useState } from 'react';
@@ -8,11 +6,11 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 
-import LoginCard from './LoginCard.jsx';
+import LoginCard from './LoginCard';
 
-import { loginSchema } from '../validation/validationSchema.js';
-import useAuth from '../hooks/auth.js';
-import routes from '../routes.js';
+import { loginSchema } from '../validation/validationSchema';
+import useAuth from '../hooks/auth';
+import routes from '../routes';
 
 const LoginPage = () => {
   const inputNameRef = useRef();

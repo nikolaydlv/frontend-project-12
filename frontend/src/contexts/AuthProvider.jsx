@@ -1,7 +1,6 @@
-/* eslint-disable functional/no-expression-statements */
 import React, { useState, useMemo } from 'react';
 
-import AuthContext from './index.js';
+import AuthContext from './index';
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);

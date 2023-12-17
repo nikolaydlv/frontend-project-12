@@ -10,14 +10,14 @@ import {
   useLocation,
 } from 'react-router-dom';
 
-import useAuth from '../hooks/auth.js';
-import routes from '../routes.js';
+import useAuth from '../hooks/auth';
+import routes from '../routes';
 
-import AuthProvider from '../contexts/AuthProvider.jsx';
-import Signup from './SignupPage.jsx';
-import LoginPage from './LoginPage.jsx';
-import ChatPage from './ChatPage.jsx';
-import NotFound from './NotFound.jsx';
+import AuthProvider from '../contexts/AuthProvider';
+import Signup from './SignupPage';
+import LoginPage from './LoginPage';
+import ChatPage from './ChatPage';
+import NotFound from './NotFound';
 
 const PrivateRoute = ({ children }) => {
   const auth = useAuth();

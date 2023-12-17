@@ -1,6 +1,3 @@
-/* eslint-disable functional/no-conditional-statements */
-/* eslint-disable functional/no-expression-statements */
-
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
@@ -9,11 +6,11 @@ import { useTranslation } from 'react-i18next';
 import { Container, Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 
-import SignupCard from './SignupCard.jsx';
+import SignupCard from './SignupCard';
 
-import useAuth from '../hooks/auth.js';
-import routes from '../routes.js';
-import { registrationSchema } from '../validation/validationSchema.js';
+import useAuth from '../hooks/auth';
+import routes from '../routes';
+import { registrationSchema } from '../validation/validationSchema';
 
 const SignupPage = () => {
   const { t } = useTranslation();

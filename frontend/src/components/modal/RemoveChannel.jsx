@@ -1,4 +1,3 @@
-/* eslint-disable functional/no-expression-statements */
 import React from 'react';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';

@@ -1,4 +1,3 @@
-/* eslint-disable functional/no-expression-statements */
 import React, { useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Modal, Form, Button } from 'react-bootstrap';

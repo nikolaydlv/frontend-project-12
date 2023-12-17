@@ -1,5 +1,3 @@
-/* eslint-disable functional/no-expression-statements */
-/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -19,16 +17,26 @@ const modalsSlice = createSlice({
     openModal: (state, { payload }) => {
       const { type, targetId } = payload;
 
-      state.modals.isShown = true;
-      state.modals.modalType = type;
-      state.modals.targetId = targetId;
+      return {
+        ...state,
+        modals: {
+          ...state.modals,
+          isShown: true,
+          modalType: type,
+          targetId,
+        },
+      };
     },
 
-    closeModal: (state) => {
-      state.modals.isShown = false;
-      state.modals.modalType = '';
-      state.modals.targetId = null;
-    },
+    closeModal: (state) => ({
+      ...state,
+      modals: {
+        ...state.modals,
+        isShown: false,
+        modalType: '',
+        targetId: null,
+      },
+    }),
   },
 });
 
