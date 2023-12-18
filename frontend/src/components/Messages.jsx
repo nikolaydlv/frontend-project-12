@@ -21,18 +21,10 @@ const Messages = () => {
   const { channels, currentChannelId } = useSelector((state) => state.channels);
   const { messages } = useSelector((state) => state.messages);
 
-  const currentChannel = channels.length !== 0
-    ? channels.find((el) => el.id === currentChannelId)
-    : '';
-
-  const currentChannelName = currentChannel
-    ? currentChannel.name
-    : '';
+  const currentChannelName = channels.find((el) => el.id === currentChannelId)?.name ?? '';
 
   const currentMessages = messages.filter((el) => el.channelId === currentChannelId);
-  const currentMessagesLength = currentMessages
-    ? currentMessages.length
-    : 0;
+  const currentMessagesLength = currentMessages.length;
 
   const formik = useFormik({
     initialValues: { body: '' },

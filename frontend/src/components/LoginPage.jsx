@@ -47,7 +47,6 @@ const LoginPage = () => {
         if (err.isAxiosError) {
           if (err.response.status === 401) {
             setAuthFailed(true);
-            navigate(routes.loginPagePath());
             inputNameRef.current.select();
           } else {
             toast.error(t('errors.network'));

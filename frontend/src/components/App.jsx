@@ -34,7 +34,7 @@ const AuthButton = () => {
 
   return auth.loggedIn
     ? <Button onClick={auth.logOut}>{t('exit')}</Button>
-    : '';
+    : null;
 };
 
 const App = () => {

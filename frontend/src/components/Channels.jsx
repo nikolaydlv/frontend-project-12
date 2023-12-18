@@ -1,16 +1,10 @@
 import React from 'react';
-import filter from 'leo-profanity';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import {
-  Col,
-  Button,
-  ButtonGroup,
-  Dropdown,
-} from 'react-bootstrap';
+import { Col, Button } from 'react-bootstrap';
 
-import getModal from './modal/index';
-import { changeCurrentChannel } from '../slices/channelsSlice';
+import Channel from './Channel';
+import getModal from './modal';
 import { openModal } from '../slices/modalSlice';
 
 const Channels = () => {
@@ -20,8 +14,6 @@ const Channels = () => {
 
   const selector = useSelector((state) => state.modals);
   const { modalType } = selector.modals;
-
-  const handleChangeClick = (id) => dispatch(changeCurrentChannel(id));
 
   const renderModal = () => {
     if (modalType === '') {
@@ -58,32 +50,7 @@ const Channels = () => {
 
       <ul className="nav flex-column nav-pills nav-fill px-2">
         {channels.map((el) => (
-          <li className="nav-item w-100" key={el.id}>
-            <ButtonGroup className="d-flex show dropdown">
-
-              <Button
-                onClick={() => handleChangeClick(el.id)}
-                variant={el.id === currentChannelId ? 'secondary' : 'light'}
-                className="w-100 rounded-0 text-start text-truncate"
-              >
-                <span className="me-1">#</span>
-                {filter.clean(el.name)}
-              </Button>
-
-              { el.removable && (
-                <Dropdown>
-                  <Dropdown.Toggle split variant={el.id === currentChannelId ? 'secondary' : 'light'} className="flex-grow-0 dropdownCustom">
-                    <span className="visually-hidden">{t('modal.toggle')}</span>
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => dispatch(openModal({ type: 'removing', targetId: el.id }))}>{t('modal.remove')}</Dropdown.Item>
-                    <Dropdown.Item onClick={() => dispatch(openModal({ type: 'renaming', targetId: el.id }))}>{t('modal.rename')}</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              )}
-
-            </ButtonGroup>
-          </li>
+          <Channel key={el.id} el={el} currentChannelId={currentChannelId} />
         ))}
       </ul>
       { renderModal() }
