@@ -41,7 +41,7 @@ const Remove = () => {
       <Modal.Body>
         <Modal.Title>{t('modal.confirm')}</Modal.Title>
         <Modal.Footer>
-          <Button className="me-2" variant="secondary" onClick={handleClose}>{t('cancel')}</Button>
+          <Button className="me-2" variant="secondary" onClick={handleClose}>{t('modal.cancel')}</Button>
           <Button type="submit" variant="danger" onClick={handleRemove} disabled={isSubmitting}>{t('modal.remove')}</Button>
         </Modal.Footer>
       </Modal.Body>

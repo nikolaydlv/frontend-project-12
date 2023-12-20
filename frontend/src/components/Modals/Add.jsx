@@ -74,7 +74,7 @@ const Add = () => {
             <Form.Label visuallyHidden>{t('modal.channelName')}</Form.Label>
             <Form.Control.Feedback type="invalid">{formik.errors.body}</Form.Control.Feedback>
             <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>{t('cancel')}</Button>
+              <Button variant="secondary" onClick={handleClose}>{t('modal.cancel')}</Button>
               <Button type="submit" variant="primary" disabled={formik.isSubmitting}>{t('send')}</Button>
             </Modal.Footer>
           </Form.Group>
