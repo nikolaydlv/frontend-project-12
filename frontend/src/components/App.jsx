@@ -1,77 +1,46 @@
-import { Button, Navbar, Container } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
-import { ToastContainer } from 'react-toastify';
+import React from 'react';
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  Navigate,
-  useLocation,
+  BrowserRouter, Navigate, Route, Routes,
 } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
-import useAuth from '../hooks/auth';
-import routes from '../routes';
+import ChatNavbar from './Navbar/ChatNavbar';
+import LoginPage from './LoginPage/LoginPage';
+import SignupPage from './SignupPage/SignupPage';
+import ChatPage from './ChatPage/ChatPage';
+import NotFoundPage from './Errors/NotFoundPage';
 
-import AuthProvider from '../contexts/AuthProvider';
-import Signup from './SignupPage';
-import LoginPage from './LoginPage';
-import ChatPage from './ChatPage';
-import NotFound from './NotFound';
+import { useAuth } from '../hooks';
+import { appPaths } from '../routes';
 
-const PrivateRoute = ({ children }) => {
+const ProtectedRoute = ({ children }) => {
   const auth = useAuth();
-  const location = useLocation();
-
-  return auth.loggedIn
-    ? children
-    : <Navigate to={routes.loginPagePath()} state={{ from: location }} />;
+  return auth.user ? children : <Navigate to={appPaths.login} />;
 };
 
-const AuthButton = () => {
-  const auth = useAuth();
-  const { t } = useTranslation();
+const App = () => (
+  <BrowserRouter>
+    <div className="d-flex flex-column h-100">
+      <ToastContainer />
+      <ChatNavbar />
 
-  return auth.loggedIn
-    ? <Button onClick={auth.logOut}>{t('exit')}</Button>
-    : null;
-};
+      <Routes>
+        <Route path={appPaths.login} element={<LoginPage />} />
+        <Route path={appPaths.signUp} element={<SignupPage />} />
+        <Route
+          path={appPaths.chat}
+          element={(
+            <ProtectedRoute>
+              <ChatPage />
+            </ProtectedRoute>
+          )}
+        />
+        <Route path={appPaths.notFound} element={<NotFoundPage />} />
+      </Routes>
 
-const App = () => {
-  const { t } = useTranslation();
-
-  return (
-    <AuthProvider>
-      <div className="d-flex flex-column h-100">
-        <Router>
-
-          <Navbar expand="lg" variant="light" bg="white" className="shadow-sm">
-            <Container>
-              <Navbar.Brand as={Link} to={routes.chatPagePath()}>{t('name')}</Navbar.Brand>
-              <AuthButton />
-            </Container>
-          </Navbar>
-
-          <ToastContainer />
-
-          <Routes>
-            <Route
-              path={routes.chatPagePath()}
-              element={(
-                <PrivateRoute>
-                  <ChatPage />
-                </PrivateRoute>
-              )}
-            />
-            <Route path={routes.loginPagePath()} element={<LoginPage />} />
-            <Route path={routes.signupPagePath()} element={<Signup />} />
-            <Route path={routes.notFoundPath()} element={<NotFound />} />
-          </Routes>
-
-        </Router>
-      </div>
-    </AuthProvider>
-  );
-};
+    </div>
+  </BrowserRouter>
+);
 
 export default App;
