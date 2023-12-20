@@ -1,13 +1,24 @@
-import { createSlice } from '@reduxjs/toolkit';
+/* eslint-disable no-param-reassign */
 
-import fetchData from './fetchData';
+import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import fetchDataThunk from './thunks';
 
-const generalChannelId = 1;
+const defaultChannelId = 1;
 
-const initialState = {
-  channels: [],
-  currentChannelId: generalChannelId,
+const statuses = {
+  notLoaded: 'notLoaded',
+  loading: 'loading',
+  loaded: 'loaded',
+  loadError: 'loadError',
 };
+
+const channelsAdapter = createEntityAdapter();
+
+const initialState = channelsAdapter.getInitialState({
+  currentChannelId: null,
+  loadingStatus: statuses.notLoaded,
+  error: null,
+});
 
 const channelsSlice = createSlice({
   name: 'channels',
@@ -15,60 +26,67 @@ const channelsSlice = createSlice({
   initialState,
 
   reducers: {
-    addChannel: (state, { payload }) => ({
-      ...state,
-      channels: [...state.channels, payload],
-    }),
+    addChannel: channelsAdapter.addOne,
 
-    changeCurrentChannel: (state, { payload }) => ({
-      ...state,
-      currentChannelId: payload,
-    }),
+    renameChannel: channelsAdapter.updateOne,
+
+    switchChannel: (state, action) => {
+      state.currentChannelId = action.payload.id;
+    },
 
     removeChannel: (state, { payload }) => {
-      const newChannels = state.channels.filter((el) => el.id !== payload.id);
-
-      const newCurrentChannelId = state.currentChannelId === payload.id
-        ? generalChannelId
+      const removeChannelId = payload;
+      const activeChannelId = state.currentChannelId;
+      state.currentChannelId = (removeChannelId === activeChannelId)
+        ? defaultChannelId
         : state.currentChannelId;
-
-      return {
-        ...state,
-        channels: newChannels,
-        currentChannelId: newCurrentChannelId,
-      };
+      channelsAdapter.removeOne(state, removeChannelId);
     },
 
-    renameChannel: (state, { payload }) => {
-      const { id, name } = payload;
-
-      const newChannels = state.channels.map((el) => {
-        if (el.id === id) {
-          return { ...el, name };
-        }
-        return el;
-      });
-
-      return {
-        ...state,
-        channels: newChannels,
-      };
-    },
   },
 
-  extraReducers: (builder) => builder
-    .addCase(fetchData.fulfilled, (state, action) => ({
-      ...state,
-      channels: action.payload.channels,
-      currentChannelId: action.payload.currentChannelId,
-    })),
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchDataThunk.fulfilled, (state, action) => {
+        channelsAdapter.setAll(state, action.payload.channels);
+        state.currentChannelId = action.payload.currentChannelId;
+        state.loadingStatus = statuses.loaded;
+        state.error = null;
+      })
+      .addCase(fetchDataThunk.pending, (state) => {
+        state.loadingStatus = statuses.loading;
+        state.error = null;
+      })
+      .addCase(fetchDataThunk.rejected, (state, action) => {
+        state.loadingStatus = statuses.loadError;
+        state.error = action.payload;
+      });
+  },
 });
 
-export const {
-  addChannel,
-  changeCurrentChannel,
-  removeChannel,
-  renameChannel,
-} = channelsSlice.actions;
+const { actions } = channelsSlice;
+
+const selectors = channelsAdapter.getSelectors((state) => state.channels);
+
+const customSelectors = {
+  selectAll: selectors.selectAll,
+
+  selectById: selectors.selectById,
+
+  selectCurrentChannelId: (state) => state.channels.currentChannelId,
+
+  selectCurrentChannel: (state) => {
+    const { currentChannelId } = state.channels;
+    return selectors.selectById(state, currentChannelId);
+  },
+
+  selectChannelsNames: (state) => {
+    const channels = selectors.selectAll(state);
+    return channels.map(({ name }) => name);
+  },
+
+};
+
+export { actions, customSelectors as selectors };
 
 export default channelsSlice.reducer;

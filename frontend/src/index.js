@@ -1,8 +1,12 @@
-import { io } from 'socket.io-client';
+import ReactDOM from 'react-dom/client';
 import './styles/index.scss';
 
-import initApp from './init';
+import init from './init';
 
-const socket = io();
+const app = async () => {
+  const root = ReactDOM.createRoot(document.getElementById('root'));
 
-initApp(socket);
+  root.render(await init());
+};
+
+app();

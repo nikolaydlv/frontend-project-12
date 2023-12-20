@@ -1,34 +1,46 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import { actions as channelsActions } from './channelsSlice';
 
-import fetchData from './fetchData';
+const messagesAdapter = createEntityAdapter();
 
-const initialState = {
-  messages: [],
-};
+const initialState = messagesAdapter.getInitialState();
 
-const messagesSlice = createSlice({
+const messageSlice = createSlice({
   name: 'messages',
 
   initialState,
 
   reducers: {
-    addMessage: (state, { payload }) => ({
-      ...state,
-      messages: [...state.messages, payload],
-    }),
-
-    removeAllChannelMessages: (state, { payload }) => ({
-      ...state,
-      messages: state.messages.filter((el) => el.channelId !== payload.id),
-    }),
+    addMessage: messagesAdapter.addOne,
+    addMessages: messagesAdapter.addMany,
   },
 
-  extraReducers: (builder) => builder
-    .addCase(fetchData.fulfilled, (state, { payload }) => ({
-      ...state,
-      messages: payload.messages,
-    })),
+  extraReducers: (builder) => {
+    builder.addCase(channelsActions.removeChannel, (state, action) => {
+      const messagesToRemove = Object.values(state.entities)
+        .filter((message) => message.channelId === action.payload)
+        .map((message) => message.id);
+
+      messagesAdapter.removeMany(state, messagesToRemove);
+    });
+  },
 });
 
-export const { addMessage, removeAllChannelMessages } = messagesSlice.actions;
-export default messagesSlice.reducer;
+const { actions } = messageSlice;
+
+const selectors = messagesAdapter.getSelectors((state) => state.messages);
+
+const customSelectors = {
+  selectAll: selectors.selectAll,
+
+  selectById: (state) => {
+    const { currentChannelId } = state.channels;
+    const messages = selectors.selectAll(state);
+    return messages.filter(({ channelId }) => channelId === currentChannelId);
+  },
+
+};
+
+export { actions, customSelectors as selectors };
+
+export default messageSlice.reducer;
