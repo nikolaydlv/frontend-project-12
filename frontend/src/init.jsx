@@ -6,7 +6,7 @@ import { Provider as RollbarProvider, ErrorBoundary as ErrorBoundaryProvider } f
 
 import App from './components/App';
 import AuthProvider from './contexts/AuthProvider';
-import SocketProvider from './contexts/SocketProvider';
+import ApiProvider from './contexts/ApiProvider';
 import FilterProvider from './contexts/FilterProvider';
 import resources from './locales';
 import store from './slices';
@@ -25,7 +25,7 @@ const init = async () => {
     <RollbarProvider config={rollbarConfig}>
       <ErrorBoundaryProvider>
         <StoreProvider store={store}>
-          <SocketProvider socket={websocket}>
+          <ApiProvider socket={websocket}>
             <AuthProvider>
               <FilterProvider>
                 <I18nextProvider i18n={i18n}>
@@ -33,7 +33,7 @@ const init = async () => {
                 </I18nextProvider>
               </FilterProvider>
             </AuthProvider>
-          </SocketProvider>
+          </ApiProvider>
         </StoreProvider>
       </ErrorBoundaryProvider>
     </RollbarProvider>

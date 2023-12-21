@@ -5,7 +5,7 @@ import { SocketContext } from './index';
 import { actions as messagesActions } from '../slices/messagesSlice';
 import { actions as channelsActions } from '../slices/channelsSlice';
 
-const SocketProvider = ({ socket, children }) => {
+const ApiProvider = ({ socket, children }) => {
   const dispatch = useDispatch();
 
   const connectSocket = useCallback(() => {
@@ -85,4 +85,4 @@ const SocketProvider = ({ socket, children }) => {
   return <SocketContext.Provider value={socketContext}>{children}</SocketContext.Provider>;
 };
 
-export default SocketProvider;
+export default ApiProvider;
