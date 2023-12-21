@@ -11,7 +11,7 @@ const NotFoundPage = () => {
 
   return (
     <div className="text-center">
-      <Image width="30%" height="30%" alt="Страница не найдена" src={error} fluid />
+      <Image width="30%" height="30%" alt={t('pageNotFound')} src={error} fluid />
       <h1 className="h4 text-muted">{t('pageNotFound')}</h1>
       <p className="text-muted">
         {t('redirect')}
