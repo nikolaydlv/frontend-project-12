@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 
+import LoginPage from '../LoginPage/LoginPage';
 import ChannelsBox from './Channels/ChannelsBox';
 import MessagesBox from './Messages/MessagesBox';
 import LoadingSpinner from './LoadingSpinner';
@@ -22,8 +23,14 @@ const ChatBox = () => {
         </>
       );
 
-    default:
+    case statuses.loadError:
+      return <LoginPage />;
+
+    case statuses.loading:
       return <LoadingSpinner />;
+
+    default:
+      return <LoginPage />;
   }
 };
 
